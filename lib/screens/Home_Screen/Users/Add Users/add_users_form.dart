@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fyp_management/components/custom_surfix_icon.dart';
 import 'package:fyp_management/components/default_button.dart';
 import 'package:fyp_management/components/form_error.dart';

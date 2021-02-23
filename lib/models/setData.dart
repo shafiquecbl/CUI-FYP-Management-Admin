@@ -12,14 +12,10 @@ class SetData {
 
   Future saveNewUser(email, context) async {
     final CollectionReference users =
-        FirebaseFirestore.instance.collection('Admin');
+        FirebaseFirestore.instance.collection('Users');
     users
         .doc(email)
-        .set({
-          'Email': email,
-          'Uid': uid,
-          'Email status': "Verified",
-        })
+        .set({'Email': email, 'Uid': uid, 'Role': "Admin"})
         .then((value) => Navigator.pushReplacementNamed(
             context, CompleteProfileScreen.routeName))
         .catchError((e) {
@@ -32,13 +28,21 @@ class SetData {
       @required batch,
       @required department,
       @required regNo}) async {
-    final CollectionReference students =
-        FirebaseFirestore.instance.collection('Students');
-    students.doc(email).set({
+    await FirebaseFirestore.instance
+        .collection('Role')
+        .doc(email)
+        .set({'Role': "Student"});
+    return await FirebaseFirestore.instance
+        .collection('Students')
+        .doc(department)
+        .collection(batch)
+        .doc(email)
+        .set({
       'Email': email,
       'Department': department,
       'Batch': batch,
-      'Registeration No': regNo
+      'Registeration No': regNo,
+      'PhotoURL': "",
     }).then((value) {
       Navigator.pop(context);
       Snack_Bar.show(context, "Student added successfully!");
