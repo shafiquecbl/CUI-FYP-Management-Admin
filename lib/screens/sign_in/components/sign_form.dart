@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -78,10 +77,8 @@ class _SignFormState extends State<SignForm> {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 user = auth.currentUser;
-                FirebaseFirestore.instance.terminate();
-                FirebaseFirestore.instance
-                    .clearPersistence()
-                    .then((value) => signinUser(email, password, context));
+                showLoadingDialog(context);
+                signinUser(email, password, context);
               }
             },
           ),
@@ -165,6 +162,7 @@ class _SignFormState extends State<SignForm> {
     auth
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
+      Navigator.pop(context);
       if (value.user.emailVerified) {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -175,6 +173,7 @@ class _SignFormState extends State<SignForm> {
         verifyEmailDialog(context, title, content);
       }
     }).catchError((e) {
+      Navigator.pop(context);
       Snack_Bar.show(context, e.message);
     });
   }

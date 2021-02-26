@@ -11,12 +11,12 @@ import 'package:fyp_management/widgets/snack_bar.dart';
 import 'package:fyp_management/models/setData.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-class AddUsersForm extends StatefulWidget {
+class AddStudentsForm extends StatefulWidget {
   @override
-  _AddUsersFormState createState() => _AddUsersFormState();
+  _AddStudentsFormState createState() => _AddStudentsFormState();
 }
 
-class _AddUsersFormState extends State<AddUsersForm> {
+class _AddStudentsFormState extends State<AddStudentsForm> {
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
   FirebaseApp fbApp = Firebase.app('Secondary');
@@ -66,7 +66,7 @@ class _AddUsersFormState extends State<AddUsersForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Create User",
+            text: "Add Student",
             press: () async {
               if (department == null) {
                 addError(error: "Please select department");
@@ -82,7 +82,7 @@ class _AddUsersFormState extends State<AddUsersForm> {
                   removeError(error: "Please select batch");
                   password = email.substring(0, 12);
                   removeError(error: kInvalidEmailError);
-                  show();
+                  showLoadingDialog(context);
                   createUser(email, password, context);
                 }
               }
@@ -195,15 +195,5 @@ class _AddUsersFormState extends State<AddUsersForm> {
       Navigator.pop(context);
       Snack_Bar.show(context, e.message);
     });
-  }
-
-  show() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
   }
 }

@@ -28,10 +28,14 @@ class SetData {
       @required batch,
       @required department,
       @required regNo}) async {
-    await FirebaseFirestore.instance
-        .collection('Role')
-        .doc(email)
-        .set({'Role': "Student"});
+    await FirebaseFirestore.instance.collection('Users').doc(email).set({
+      'Email': email,
+      'Department': department,
+      'Batch': batch,
+      'Registeration No': regNo,
+      'PhotoURL': "",
+      'Role': "Student"
+    });
     return await FirebaseFirestore.instance
         .collection('Students')
         .doc(department)

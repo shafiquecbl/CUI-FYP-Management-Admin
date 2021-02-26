@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_management/screens/Home_Screen/griddashboard.dart';
 import 'package:fyp_management/widgets/snack_bar.dart';
@@ -49,17 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   IconButton(
                     alignment: Alignment.topCenter,
                     icon: Icon(
-                      Icons.settings,
+                      Icons.logout,
                     ),
                     onPressed: () {
-                      FirebaseAuth.instance.signOut().whenComplete(() {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                              builder: (context) => SignInScreen()),
-                        );
-                      }).catchError((e) {
-                        Snack_Bar.show(context, e.message);
-                      });
+                      confirmSignout(context);
                     },
                   )
                 ],
@@ -72,6 +66,44 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  confirmSignout(BuildContext context) {
+    // set up the button
+    Widget yes = CupertinoDialogAction(
+      child: Text("Yes"),
+      onPressed: () {
+        FirebaseAuth.instance.signOut().whenComplete(() {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => SignInScreen()),
+          );
+        }).catchError((e) {
+          Snack_Bar.show(context, e.message);
+        });
+      },
+    );
+
+    Widget no = CupertinoDialogAction(
+      child: Text("No"),
+      onPressed: () {
+        Navigator.maybePop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    CupertinoAlertDialog alert = CupertinoAlertDialog(
+      title: Text("Signout"),
+      content: Text("Do you want to signout?"),
+      actions: [yes, no],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

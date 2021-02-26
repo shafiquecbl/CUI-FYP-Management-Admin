@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_management/constants.dart';
-import 'package:fyp_management/screens/Home_Screen/Users/Add%20Users/add_users_form.dart';
+import 'package:fyp_management/screens/Home_Screen/Students/Add%20Students/add_students_form.dart';
 import 'package:fyp_management/size_config.dart';
 import 'package:fyp_management/widgets/customAppBar.dart';
 
-class AddUsers extends StatefulWidget {
+class AddStudents extends StatefulWidget {
   @override
-  _AddUsersState createState() => _AddUsersState();
+  _AddStudentsState createState() => _AddStudentsState();
 }
 
-class _AddUsersState extends State<AddUsers> {
+class _AddStudentsState extends State<AddStudents> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      appBar: customAppBar("Add Users"),
+      appBar: customAppBar("Add Students"),
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,
@@ -31,7 +31,7 @@ class _AddUsersState extends State<AddUsers> {
                           fontSize: 19,
                           fontWeight: FontWeight.bold)),
                   SizedBox(height: SizeConfig.screenHeight * 0.04),
-                  AddUsersForm()
+                  AddStudentsForm()
                 ],
               ),
             ),
