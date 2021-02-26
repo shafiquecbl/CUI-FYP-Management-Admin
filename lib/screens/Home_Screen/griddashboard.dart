@@ -17,6 +17,7 @@ class GridDashboard extends StatelessWidget {
       padding: EdgeInsets.only(left: 30, right: 30),
       children: [
         students(context),
+        teachers(context),
       ],
     ));
   }
@@ -28,11 +29,11 @@ class GridDashboard extends StatelessWidget {
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: kPrimaryColor.withOpacity(0.3),
-            spreadRadius: 1,
+            spreadRadius: 0,
             blurRadius: 2,
             offset: Offset(1, 0),
           )
-        ], color: hexColor, borderRadius: BorderRadius.circular(10)),
+        ], color: Colors.grey[50], borderRadius: BorderRadius.circular(10)),
         child: FlatButton(
           splashColor: kPrimaryColor.withOpacity(0.5),
           onPressed: () {
@@ -47,7 +48,7 @@ class GridDashboard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SvgPicture.asset(
-                "assets/icons/User.svg",
+                "assets/icons/student.svg",
                 color: kPrimaryColor,
                 width: 42,
               ),
@@ -56,7 +57,10 @@ class GridDashboard extends StatelessWidget {
               ),
               Text(
                 "Add Students",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black.withOpacity(0.6)),
               ),
             ],
           ),
@@ -72,11 +76,11 @@ class GridDashboard extends StatelessWidget {
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: kPrimaryColor.withOpacity(0.3),
-            spreadRadius: 1,
+            spreadRadius: 0,
             blurRadius: 2,
             offset: Offset(1, 0),
           )
-        ], color: hexColor, borderRadius: BorderRadius.circular(10)),
+        ], color: Colors.grey[50], borderRadius: BorderRadius.circular(10)),
         child: FlatButton(
           splashColor: kPrimaryColor.withOpacity(0.5),
           onPressed: () {
@@ -91,7 +95,7 @@ class GridDashboard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SvgPicture.asset(
-                "assets/icons/User.svg",
+                "assets/icons/teacher.svg",
                 color: kPrimaryColor,
                 width: 42,
               ),
@@ -100,7 +104,10 @@ class GridDashboard extends StatelessWidget {
               ),
               Text(
                 "Add Teachers",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black.withOpacity(0.6)),
               ),
             ],
           ),
