@@ -55,4 +55,34 @@ class SetData {
       Snack_Bar.show(context, e.message);
     });
   }
+
+  Future addTeacher(context,
+      {@required email, @required department, @required name}) async {
+    await FirebaseFirestore.instance.collection('Users').doc(email).set({
+      'Email': email,
+      'Department': department,
+      'Name': name,
+      'PhotoURL': "",
+      'Role': "Teacher"
+    });
+
+    return await FirebaseFirestore.instance
+        .collection('Teachers')
+        .doc(department)
+        .collection('Teachers')
+        .doc(email)
+        .set({
+      'Email': email,
+      'Department': department,
+      'Name': name,
+      'PhotoURL': "",
+      'Role': "Teacher"
+    }).then((value) {
+      Navigator.pop(context);
+      Snack_Bar.show(context, "Teacher added successfully!");
+    }).catchError((e) {
+      Navigator.pop(context);
+      Snack_Bar.show(context, e.message);
+    });
+  }
 }

@@ -23,13 +23,11 @@ class _AddTeachersFormState extends State<AddTeachersForm> {
 
   String email;
   String password;
-
+  String name;
   String department;
-  String batch;
 
   static const menuItems = <String>[
     'CS',
-    'SE',
   ];
   final List<DropdownMenuItem<String>> popUpMenuItem = menuItems
       .map((String value) => DropdownMenuItem<String>(
@@ -59,7 +57,11 @@ class _AddTeachersFormState extends State<AddTeachersForm> {
         child: Column(children: [
           getDepartmentFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
+          buildNameFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+          buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
@@ -73,10 +75,9 @@ class _AddTeachersFormState extends State<AddTeachersForm> {
               }
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                password = email.substring(0, 12);
                 removeError(error: kInvalidEmailError);
-                // showLoadingDialog(context);
-                // createUser(email, password, context);
+                showLoadingDialog(context);
+                createUser(email, password, context);
               }
             },
           ),
@@ -116,9 +117,6 @@ class _AddTeachersFormState extends State<AddTeachersForm> {
           if (value.isNotEmpty) {
             removeError(error: kEmailNullError);
           }
-          // else if (studentEmail.hasMatch(value)) {
-          //   removeError(error: kInvalidEmailError);
-          // }
           email = value;
         });
       },
@@ -127,10 +125,6 @@ class _AddTeachersFormState extends State<AddTeachersForm> {
           addError(error: kEmailNullError);
           return "";
         }
-        // else if (!studentEmail.hasMatch(value)) {
-        //   addError(error: kInvalidEmailError);
-        //   return "";
-        // }
         return null;
       },
       decoration: InputDecoration(
@@ -145,12 +139,86 @@ class _AddTeachersFormState extends State<AddTeachersForm> {
     );
   }
 
+  //////////////////////////////////////////////////////////////////////////
+
+  TextFormField buildPasswordFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      obscureText: true,
+      onSaved: (newValue) => password = newValue,
+      onChanged: (value) {
+        setState(() {
+          if (value.isNotEmpty) {
+            removeError(error: kPassNullError);
+          } else if (value.length >= 8) {
+            removeError(error: kShortPassError);
+          }
+          password = value;
+        });
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kPassNullError);
+          return "";
+        } else if (value.length < 8) {
+          addError(error: kShortPassError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        border: outlineBorder,
+        labelText: "Password",
+        hintText: "Enter your password",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+      ),
+    );
+  }
+
+  /////////////////////////////////////////////////////////////////////////
+
+  TextFormField buildNameFormField() {
+    return TextFormField(
+      onSaved: (newValue) => name = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNamelNullError);
+        }
+        name = value;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kNamelNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        border: outlineBorder,
+        labelText: "Name",
+        hintText: "Enter your name",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
   Future createUser(email, password, context) async {
     await FirebaseAuth.instanceFor(app: fbApp)
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) async {
-      // SetData().addStudent(context,
-      //     email: email, batch: batch, department: department, regNo: password);
+      SetData().addTeacher(
+        context,
+        email: email,
+        name: name,
+        department: department,
+      );
+      FirebaseAuth.instanceFor(app: fbApp)
+          .currentUser
+          .updateProfile(displayName: name);
       FirebaseAuth.instanceFor(app: fbApp).signOut();
     }).catchError((e) {
       FirebaseAuth.instanceFor(app: fbApp).signOut();
