@@ -34,7 +34,8 @@ class SetData {
       'Batch': batch,
       'Registeration No': regNo,
       'PhotoURL': "",
-      'Role': "Student"
+      'Role': "Student",
+      'GroupID': ""
     });
     return await FirebaseFirestore.instance
         .collection('Students')

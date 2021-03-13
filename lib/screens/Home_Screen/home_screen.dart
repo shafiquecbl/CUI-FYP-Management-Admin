@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Muhammad Shafique",
+                        "Rana Zulkaif",
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
