@@ -17,8 +17,8 @@ class _AddDateFormState extends State<AddDateForm> {
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
 
-  String dateTime = DateFormat("dd-MM-yyyy h:mma").format(DateTime.now());
-  String date;
+  String dateTime = DateFormat("yyyy-MM-dd").format(DateTime.now());
+  int date;
   int radioValue = 0;
   String dateValue = 'proposal';
   void handleRadioValueChanged(int value) {
@@ -149,11 +149,12 @@ class _AddDateFormState extends State<AddDateForm> {
       initialValue: dateTime,
       maxLength: 18,
       keyboardType: TextInputType.datetime,
-      onSaved: (newValue) => date = newValue,
+      onSaved: (newValue) =>
+          date = int.parse(newValue.replaceAll(new RegExp(r'[^\w\s]+'), '')),
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: "Please Enter Date");
-          date = value;
+          date = int.parse(value.replaceAll(new RegExp(r'[^\w\s]+'), ''));
         } else {}
       },
       validator: (value) {
@@ -165,7 +166,7 @@ class _AddDateFormState extends State<AddDateForm> {
       },
       decoration: InputDecoration(
         labelText: "Date",
-        hintText: "DDMMYYYY",
+        hintText: "DD-MM-YYYY",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: Icon(Icons.calendar_today),
         border: outlineBorder,

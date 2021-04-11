@@ -27,13 +27,16 @@ class SetData {
       @required batch,
       @required department,
       @required regNo}) async {
+    int step = 1;
     await firestore.collection('Users').doc(email).set({
       'Email': email,
       'Department': department,
       'Batch': batch,
       'Registeration No': regNo,
       'Role': "Student",
-      'GroupID': ""
+      'GroupID': "",
+      'Current Step': step,
+      'token': '',
     });
     return await firestore
         .collection('Students')
