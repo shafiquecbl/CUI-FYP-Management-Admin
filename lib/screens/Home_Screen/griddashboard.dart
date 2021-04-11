@@ -3,6 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fyp_management/constants.dart';
 import 'package:fyp_management/screens/Home_Screen/Add%20Batch/add_batch.dart';
+import 'package:fyp_management/screens/Home_Screen/Add%20Dates/add_dates.dart';
 import 'package:fyp_management/screens/Home_Screen/Teachers/add_teachers.dart';
 import 'package:fyp_management/screens/Home_Screen/View%20Groups/view_groups.dart';
 import 'package:fyp_management/widgets/navigator.dart';
@@ -19,8 +20,9 @@ class GridDashboard extends StatelessWidget {
         mainAxisSpacing: 30,
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         staggeredTiles: [
-          StaggeredTile.extent(2, 120),
           StaggeredTile.extent(1, 120),
+          StaggeredTile.extent(1, 300),
+          StaggeredTile.extent(1, 300),
           StaggeredTile.extent(1, 120),
           StaggeredTile.extent(2, 120),
         ],
@@ -29,6 +31,7 @@ class GridDashboard extends StatelessWidget {
           students(context),
           teachers(context),
           viewGroups(context),
+          addDates(context),
         ],
       ),
     );
@@ -190,6 +193,48 @@ class GridDashboard extends StatelessWidget {
               ),
               Text(
                 "View Groups",
+                style: GoogleFonts.teko(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black.withOpacity(0.6)),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  addDates(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Container(
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+            color: kPrimaryColor.withOpacity(0.3),
+            spreadRadius: 0,
+            blurRadius: 2,
+            offset: Offset(1, 0),
+          )
+        ], color: Colors.grey[50], borderRadius: BorderRadius.circular(10)),
+        child: FlatButton(
+          splashColor: kPrimaryColor.withOpacity(0.5),
+          onPressed: () {
+            navigator(context, AddDates());
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.calendar_today,
+                color: kPrimaryColor,
+                size: 42,
+              ),
+              SizedBox(
+                height: 14,
+              ),
+              Text(
+                "Add Dates",
                 style: GoogleFonts.teko(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

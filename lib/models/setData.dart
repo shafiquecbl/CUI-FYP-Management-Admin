@@ -7,8 +7,7 @@ import 'package:fyp_management/widgets/snack_bar.dart';
 
 class SetData {
   String uid = FirebaseAuth.instance.currentUser.uid.toString();
-  static DateTime now = DateTime.now();
-  String dateTime = DateFormat("dd-MM-yyyy h:mma").format(now);
+  String dateTime = DateFormat("dd-MM-yyyy h:mma").format(DateTime.now());
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future saveNewUser(email, context) async {

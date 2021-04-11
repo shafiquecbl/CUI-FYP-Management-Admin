@@ -7,10 +7,10 @@ import 'package:fyp_management/widgets/snack_bar.dart';
 class UpdateData {
   User user = FirebaseAuth.instance.currentUser;
   final email = FirebaseAuth.instance.currentUser.email;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future saveUserProfile(context, name, gender, phNo) async {
-    final CollectionReference users =
-        FirebaseFirestore.instance.collection('Users');
+    final CollectionReference users = firestore.collection('Users');
     users
         .doc(email)
         .update(
@@ -26,5 +26,16 @@ class UpdateData {
         .catchError((e) {
           Snack_Bar.show(context, e.message);
         });
+  }
+
+  addDate(context, {@required option, @required date}) async {
+    return await firestore
+        .collection('Dates')
+        .doc('dates')
+        .update({'${option.toLowerCase()}': date}).then((value) {
+      Navigator.pop(context);
+      Snack_Bar.show(
+          context, '${option.toUpperCase()} Date Updated Successfully');
+    });
   }
 }
