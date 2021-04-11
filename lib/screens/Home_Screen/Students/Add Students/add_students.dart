@@ -3,6 +3,7 @@ import 'package:fyp_management/constants.dart';
 import 'package:fyp_management/screens/Home_Screen/Students/Add%20Students/add_students_form.dart';
 import 'package:fyp_management/size_config.dart';
 import 'package:fyp_management/widgets/customAppBar.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AddStudents extends StatefulWidget {
   @override
@@ -24,11 +25,11 @@ class _AddStudentsState extends State<AddStudents> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: SizeConfig.screenHeight * 0.01),
+                  SizedBox(height: SizeConfig.screenHeight * 0.02),
                   Text("Enter Details",
-                      style: TextStyle(
-                          color: kPrimaryColor,
-                          fontSize: 19,
+                      style: GoogleFonts.teko(
+                          color: kTextColor,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold)),
                   SizedBox(height: SizeConfig.screenHeight * 0.04),
                   AddStudentsForm()

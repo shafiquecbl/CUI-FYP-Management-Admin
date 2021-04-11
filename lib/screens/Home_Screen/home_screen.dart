@@ -4,6 +4,7 @@ import 'package:fyp_management/screens/Home_Screen/griddashboard.dart';
 import 'package:fyp_management/widgets/snack_bar.dart';
 import 'package:fyp_management/screens/sign_in/sign_in_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home_screen";
@@ -32,17 +33,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: <Widget>[
                       Text(
                         "Rana Zulkaif",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                        style: GoogleFonts.teko(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         height: 4,
                       ),
                       Text(
                         "Admin",
-                        style: TextStyle(
+                        style: GoogleFonts.teko(
                             color: Color(0xffa29aac),
-                            fontSize: 14,
+                            fontSize: 15,
                             fontWeight: FontWeight.w600),
                       ),
                     ],

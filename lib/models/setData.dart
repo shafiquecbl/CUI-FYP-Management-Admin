@@ -9,10 +9,10 @@ class SetData {
   String uid = FirebaseAuth.instance.currentUser.uid.toString();
   static DateTime now = DateTime.now();
   String dateTime = DateFormat("dd-MM-yyyy h:mma").format(now);
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future saveNewUser(email, context) async {
-    final CollectionReference users =
-        FirebaseFirestore.instance.collection('Users');
+    final CollectionReference users = firestore.collection('Users');
     users
         .doc(email)
         .set({'Email': email, 'Uid': uid, 'Role': "Admin"})
@@ -28,16 +28,15 @@ class SetData {
       @required batch,
       @required department,
       @required regNo}) async {
-    await FirebaseFirestore.instance.collection('Users').doc(email).set({
+    await firestore.collection('Users').doc(email).set({
       'Email': email,
       'Department': department,
       'Batch': batch,
       'Registeration No': regNo,
-      'PhotoURL': "",
       'Role': "Student",
       'GroupID': ""
     });
-    return await FirebaseFirestore.instance
+    return await firestore
         .collection('Students')
         .doc(department)
         .collection(batch)
@@ -47,7 +46,6 @@ class SetData {
       'Department': department,
       'Batch': batch,
       'Registeration No': regNo,
-      'PhotoURL': "",
     }).then((value) {
       Navigator.pop(context);
       Snack_Bar.show(context, "Student added successfully!");
@@ -59,15 +57,14 @@ class SetData {
 
   Future addTeacher(context,
       {@required email, @required department, @required name}) async {
-    await FirebaseFirestore.instance.collection('Users').doc(email).set({
+    await firestore.collection('Users').doc(email).set({
       'Email': email,
       'Department': department,
       'Name': name,
-      'PhotoURL': "",
       'Role': "Teacher"
     });
 
-    return await FirebaseFirestore.instance
+    return await firestore
         .collection('Teachers')
         .doc(department)
         .collection('Teachers')
@@ -76,7 +73,6 @@ class SetData {
       'Email': email,
       'Department': department,
       'Name': name,
-      'PhotoURL': "",
       'Role': "Teacher"
     }).then((value) {
       Navigator.pop(context);
@@ -84,6 +80,18 @@ class SetData {
     }).catchError((e) {
       Navigator.pop(context);
       Snack_Bar.show(context, e.message);
+    });
+  }
+
+  Future addBatch(context, {@required department, @required batch}) async {
+    return await firestore
+        .collection('Batches')
+        .doc(department)
+        .collection('Batches')
+        .doc(batch)
+        .set({'Batch': batch}).then((value) {
+      Navigator.pop(context);
+      Snack_Bar.show(context, 'Batch added susscessfully!');
     });
   }
 }

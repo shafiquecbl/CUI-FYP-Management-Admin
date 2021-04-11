@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fyp_management/constants.dart';
 import 'package:fyp_management/models/setData.dart';
 import 'package:fyp_management/screens/complete_profile/complete_profile_screen.dart';
@@ -49,8 +48,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SpinKitDoubleBounce(
-              color: kPrimaryColor,
+            Center(
+              child: CircularProgressIndicator(),
             ),
             SizedBox(height: 20),
             Text(

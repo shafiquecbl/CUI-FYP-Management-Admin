@@ -1,28 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fyp_management/components/custom_surfix_icon.dart';
 import 'package:fyp_management/components/default_button.dart';
 import 'package:fyp_management/components/form_error.dart';
 import 'package:fyp_management/constants.dart';
+import 'package:fyp_management/models/setData.dart';
 import 'package:fyp_management/size_config.dart';
 import 'package:fyp_management/widgets/alert_dialog.dart';
 import 'package:fyp_management/widgets/outline_input_border.dart';
-import 'package:fyp_management/widgets/snack_bar.dart';
-import 'package:fyp_management/models/setData.dart';
-import 'package:firebase_core/firebase_core.dart';
 
-class AddStudentsForm extends StatefulWidget {
+class AddBatchForm extends StatefulWidget {
   @override
-  _AddStudentsFormState createState() => _AddStudentsFormState();
+  _AddBatchFormState createState() => _AddBatchFormState();
 }
 
-class _AddStudentsFormState extends State<AddStudentsForm> {
+class _AddBatchFormState extends State<AddBatchForm> {
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
-  FirebaseApp fbApp = Firebase.app('Secondary');
-
-  String email;
-  String password;
 
   String department;
   String batch;
@@ -61,12 +53,10 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           getBatchFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
-          buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Add Student",
+            text: "Add Batch",
             press: () async {
               if (department == null) {
                 addError(error: "Please select department");
@@ -80,10 +70,13 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
                 }
                 if (batch != "B") {
                   removeError(error: "Please select batch");
-                  password = email.split('@').first;
                   removeError(error: kInvalidEmailError);
                   showLoadingDialog(context);
-                  createUser(email, password, context);
+                  SetData()
+                      .addBatch(context, department: department, batch: batch)
+                      .then((value) {
+                    _formKey.currentState.reset();
+                  });
                 }
               }
             },
@@ -98,13 +91,13 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
       onSaved: (newValue) => department = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: "Please Select your department");
+          removeError(error: "Please Select department");
           department = value;
         } else {}
       },
       decoration: InputDecoration(
         labelText: "Department",
-        hintText: "Select your Department",
+        hintText: "Select Department",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: Icon(Icons.local_fire_department_outlined),
         border: outlineBorder,
@@ -119,11 +112,11 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
     return TextFormField(
       initialValue: 'B',
       maxLength: 3,
-      onSaved: (newValue) => batch = newValue.toUpperCase(),
+      onSaved: (newValue) => batch = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: "Please enter Batch no.");
-          batch = value.toLowerCase();
+          batch = value;
         } else {}
       },
       validator: (value) {
@@ -141,59 +134,5 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
         border: outlineBorder,
       ),
     );
-  }
-
-  //////////////////////////////////////////////////////////////////////////////
-
-  TextFormField buildEmailFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue.toLowerCase(),
-      onChanged: (value) {
-        setState(() {
-          if (value.isNotEmpty) {
-            removeError(error: kEmailNullError);
-          }
-          // else if (studentEmail.hasMatch(value)) {
-          //   removeError(error: kInvalidEmailError);
-          // }
-          email = value.toLowerCase();
-        });
-      },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: kEmailNullError);
-          return "";
-        }
-        // else if (!studentEmail.hasMatch(value)) {
-        //   addError(error: kInvalidEmailError);
-        //   return "";
-        // }
-        return null;
-      },
-      decoration: InputDecoration(
-        border: outlineBorder,
-        labelText: "Email",
-        hintText: "Enter your email",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
-      ),
-    );
-  }
-
-  Future createUser(email, password, context) async {
-    await FirebaseAuth.instanceFor(app: fbApp)
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value) async {
-      SetData().addStudent(context,
-          email: email, batch: batch, department: department, regNo: password);
-      FirebaseAuth.instanceFor(app: fbApp).signOut();
-    }).catchError((e) {
-      FirebaseAuth.instanceFor(app: fbApp).signOut();
-      Navigator.pop(context);
-      Snack_Bar.show(context, e.message);
-    });
   }
 }
