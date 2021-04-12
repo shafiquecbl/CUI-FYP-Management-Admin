@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_management/screens/Home_Screen/griddashboard.dart';
@@ -13,8 +15,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  User user = FirebaseAuth.instance.currentUser;
+  String token;
   @override
   Widget build(BuildContext context) {
+    getToken();
     return WillPopScope(
       onWillPop: () async => null,
       child: Scaffold(
@@ -106,5 +111,14 @@ class _HomeScreenState extends State<HomeScreen> {
         return alert;
       },
     );
+  }
+
+  void getToken() async {
+    token = await FirebaseMessaging().getToken();
+    print("TOKENNNNNNNNNNN: $token");
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user.email)
+        .update({'token': token});
   }
 }

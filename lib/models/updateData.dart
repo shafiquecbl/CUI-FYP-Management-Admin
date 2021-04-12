@@ -38,4 +38,22 @@ class UpdateData {
           context, '${option.toUpperCase()} Date Updated Successfully');
     });
   }
+
+  Future updateMessageStatus(receiverEmail) async {
+    return await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(email)
+        .collection('Student Contacts')
+        .doc(receiverEmail)
+        .update({'Status': "read"});
+  }
+
+  Future updateTeacherMessageStatus(receiverEmail) async {
+    return await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(email)
+        .collection('Teacher Contacts')
+        .doc(receiverEmail)
+        .update({'Status': "read"});
+  }
 }

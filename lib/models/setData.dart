@@ -14,7 +14,7 @@ class SetData {
     final CollectionReference users = firestore.collection('Users');
     users
         .doc(email)
-        .set({'Email': email, 'Uid': uid, 'Role': "Admin"})
+        .set({'Email': email, 'Uid': uid, 'Role': "Admin", 'token': ''})
         .then((value) => Navigator.pushReplacementNamed(
             context, CompleteProfileScreen.routeName))
         .catchError((e) {
@@ -63,7 +63,8 @@ class SetData {
       'Email': email,
       'Department': department,
       'Name': name,
-      'Role': "Teacher"
+      'Role': "Teacher",
+      'token': ''
     });
 
     return await firestore

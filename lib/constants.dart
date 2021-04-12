@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_management/size_config.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const kPrimaryColor = Color(0xFF492E7D);
 const kGreenColor = Color(0xFF388E3C);
@@ -10,6 +11,9 @@ const kSecondaryColor = Color(0xFF979797);
 const kTextColor = Color(0xFF757575);
 const Color blueColor = Color(0xff2b9ed4);
 const Color kButtonColor = Color(0xff1e2049);
+const Color separatorColor = Color(0xff272c35);
+const Color greyColor = Color(0xff8f8f8f);
+const Color receiverColor = Color(0xff1e2225);
 
 final headingStyle = TextStyle(
   fontSize: getProportionateScreenWidth(28),
@@ -17,6 +21,8 @@ final headingStyle = TextStyle(
   color: Colors.black,
   height: 1.5,
 );
+final stylee = GoogleFonts.teko(
+    color: kTextColor, fontSize: 18, fontWeight: FontWeight.bold);
 
 // Form Error
 final RegExp emailValidatorRegExp =

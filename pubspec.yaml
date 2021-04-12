@@ -22,6 +22,8 @@ dependencies:
   firebase_storage:
   flutter_offline: ^0.2.4+1
   flutter_staggered_grid_view:
+  firebase_messaging:
+  http:
 
 dev_dependencies:
   flutter_test:
