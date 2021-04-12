@@ -23,12 +23,12 @@ class GridDashboard extends StatelessWidget {
         mainAxisSpacing: 30,
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         staggeredTiles: [
-          StaggeredTile.extent(1, 150),
-          StaggeredTile.extent(1, 300),
-          StaggeredTile.extent(1, 300),
-          StaggeredTile.extent(1, 150),
-          StaggeredTile.extent(1, 150),
-          StaggeredTile.extent(1, 150),
+          StaggeredTile.extent(1, 130),
+          StaggeredTile.extent(1, 130),
+          StaggeredTile.extent(1, 130),
+          StaggeredTile.extent(1, 130),
+          StaggeredTile.extent(1, 130),
+          StaggeredTile.extent(1, 130),
         ],
         children: [
           addbatch(context),
@@ -273,7 +273,7 @@ class GridDashboard extends StatelessWidget {
             Icon(
               Icons.inbox,
               color: kPrimaryColor,
-              size: 42,
+              size: 40,
             ),
             SizedBox(
               height: 14,
