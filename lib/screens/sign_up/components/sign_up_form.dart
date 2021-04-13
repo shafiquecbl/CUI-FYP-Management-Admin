@@ -144,7 +144,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => email = newValue.toLowerCase(),
       onChanged: (value) {
         setState(() {
           if (value.isNotEmpty) {
@@ -152,7 +152,7 @@ class _SignUpFormState extends State<SignUpForm> {
           } else if (emailValidatorRegExp.hasMatch(value)) {
             removeError(error: kInvalidEmailError);
           }
-          email = value;
+          email = value.toLowerCase();
         });
       },
       validator: (value) {

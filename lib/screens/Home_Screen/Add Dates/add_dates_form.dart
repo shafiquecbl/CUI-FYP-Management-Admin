@@ -147,7 +147,7 @@ class _AddDateFormState extends State<AddDateForm> {
   TextFormField getDateFormField() {
     return TextFormField(
       initialValue: dateTime,
-      maxLength: 18,
+      maxLength: 10,
       keyboardType: TextInputType.datetime,
       onSaved: (newValue) =>
           date = int.parse(newValue.replaceAll(new RegExp(r'[^\w\s]+'), '')),

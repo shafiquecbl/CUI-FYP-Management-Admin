@@ -111,13 +111,13 @@ class _AddTeachersFormState extends State<AddTeachersForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => email = newValue.toLowerCase(),
       onChanged: (value) {
         setState(() {
           if (value.isNotEmpty) {
             removeError(error: kEmailNullError);
           }
-          email = value;
+          email = value.toLowerCase();
         });
       },
       validator: (value) {
