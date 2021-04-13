@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fyp_management/constants.dart';
 import 'package:fyp_management/screens/Home_Screen/Manage%20Batch/Add%20Batch/add_batch.dart';
 import 'package:fyp_management/widgets/navigator.dart';
-import 'package:fyp_management/widgets/snack_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ManageBatchs extends StatefulWidget {
