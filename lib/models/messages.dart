@@ -39,19 +39,18 @@ class Messages {
         .doc(receiverEmail)
         .collection('Contact US')
         .doc('shafiquecbl@gmail.com')
-        .update({'Status': 'unread'});
+        .update({
+      'Status': 'unread',
+      'Last Message': message,
+      'Time': dateTime,
+    });
 
     return await FirebaseFirestore.instance
         .collection('Users')
         .doc(email)
         .collection('Student Contacts')
         .doc(receiverEmail)
-        .set({
-      'Email': receiverEmail,
-      'Last Message': message,
-      'Time': dateTime,
-      'Status': "read"
-    });
+        .update({'Last Message': message, 'Time': dateTime, 'Status': "read"});
   }
 
   Future addTeacherMessage({@required receiverEmail, @required message}) async {
@@ -87,20 +86,14 @@ class Messages {
         .doc(email)
         .collection('Teacher Contacts')
         .doc(receiverEmail)
-        .set({
-      'Name': receiverName,
-      'Email': receiverEmail,
-      'Last Message': message,
-      'Time': dateTime,
-      'Status': "read"
-    });
+        .update({'Last Message': message, 'Time': dateTime, 'Status': "read"});
 
     return await FirebaseFirestore.instance
         .collection('Users')
         .doc(receiverEmail)
         .collection('Contact US')
         .doc(email)
-        .set({
+        .update({
       'Email': email,
       'Last Message': message,
       'Time': dateTime,
