@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fyp_management/constants.dart';
-import 'package:fyp_management/screens/Home_Screen/Add%20Batch/add_batch.dart';
 import 'package:fyp_management/screens/Home_Screen/Add%20Dates/add_dates.dart';
+import 'package:fyp_management/screens/Home_Screen/Manage%20Batch/manage_batch.dart';
 import 'package:fyp_management/screens/Home_Screen/Teachers/add_teachers.dart';
 import 'package:fyp_management/screens/Home_Screen/View%20Groups/view_groups.dart';
 import 'package:fyp_management/widgets/navigator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Inbox/Inboxx.dart';
+import 'Manage Batch/Add Batch/add_batch.dart';
 import 'Students/Add Students/add_students.dart';
 
 class GridDashboard extends StatelessWidget {
@@ -57,7 +58,7 @@ class GridDashboard extends StatelessWidget {
         child: FlatButton(
           splashColor: kPrimaryColor.withOpacity(0.5),
           onPressed: () {
-            navigator(context, AddBatch());
+            navigator(context, ManageBatchs());
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +72,7 @@ class GridDashboard extends StatelessWidget {
                 height: 14,
               ),
               Text(
-                "Add Batch",
+                "Manage Batch",
                 style: GoogleFonts.teko(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

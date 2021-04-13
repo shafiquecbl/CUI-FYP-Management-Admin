@@ -1,30 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_management/constants.dart';
-import 'package:fyp_management/screens/Home_Screen/View%20Groups/view_groups_list.dart';
-import 'package:fyp_management/size_config.dart';
-import 'package:fyp_management/widgets/customAppBar.dart';
+import 'package:fyp_management/screens/Home_Screen/Manage%20Batch/Add%20Batch/add_batch.dart';
 import 'package:fyp_management/widgets/navigator.dart';
+import 'package:fyp_management/widgets/snack_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ViewGroups extends StatefulWidget {
+class ManageBatchs extends StatefulWidget {
   @override
-  _ViewGroupsState createState() => _ViewGroupsState();
+  _ManageBatchsState createState() => _ManageBatchsState();
 }
 
-class _ViewGroupsState extends State<ViewGroups> {
-  int radioValue = 1;
+class _ManageBatchsState extends State<ManageBatchs> {
+  int radioValue = 0;
   String department = 'SE';
   void handleRadioValueChanged(int value) {
     setState(() {
       radioValue = value;
       if (radioValue == 0) {
         setState(() {
-          department = "CS";
+          department = "SE";
         });
       } else {
         setState(() {
-          department = "SE";
+          department = "CS";
         });
       }
     });
@@ -32,11 +32,16 @@ class _ViewGroupsState extends State<ViewGroups> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
-      appBar: customAppBar("View Groups"),
+      appBar: AppBar(
+        title: Text('Manage Batchs'),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () => navigator(context, AddBatch()))
+        ],
+      ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             color: hexColor,
@@ -49,7 +54,7 @@ class _ViewGroupsState extends State<ViewGroups> {
                   onChanged: handleRadioValueChanged,
                 ),
                 Text(
-                  'CS',
+                  'SE',
                   style: new TextStyle(fontSize: 16.0),
                 ),
                 SizedBox(
@@ -61,7 +66,7 @@ class _ViewGroupsState extends State<ViewGroups> {
                   onChanged: handleRadioValueChanged,
                 ),
                 Text(
-                  'SE',
+                  'CS',
                   style: new TextStyle(
                     fontSize: 16.0,
                   ),
@@ -69,14 +74,7 @@ class _ViewGroupsState extends State<ViewGroups> {
               ],
             ),
           ),
-          Container(
-              color: hexColor,
-              width: MediaQuery.of(context).size.width,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-                child: Text("Select Batch: "),
-              )),
-          Expanded(child: batch())
+          Expanded(child: batch()),
         ],
       ),
     );
@@ -98,13 +96,7 @@ class _ViewGroupsState extends State<ViewGroups> {
             );
           if (snapshot.data.docs.length == 0)
             return Center(
-              child: Text(
-                'No Batch Available',
-                style: GoogleFonts.teko(
-                    color: kTextColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
+              child: Text('No Batch Available', style: stylee),
             );
           return ListView.builder(
               itemCount: snapshot.data.docs.length,
@@ -117,15 +109,10 @@ class _ViewGroupsState extends State<ViewGroups> {
   }
 
   list(DocumentSnapshot snapshot) {
-    return GestureDetector(
-      onTap: () {
-        navigator(context,
-            ViewGroupsList(department: department, batch: snapshot['Batch']));
-      },
-      child: Card(
-        elevation: 2,
-        shadowColor: kPrimaryColor,
-        child: ListTile(
+    return Card(
+      elevation: 2,
+      shadowColor: kPrimaryColor,
+      child: ListTile(
           leading: Container(
             width: 50,
             height: 50,
@@ -166,14 +153,55 @@ class _ViewGroupsState extends State<ViewGroups> {
               ),
             ),
           ),
-          title: Text(
-            "Batch: ${snapshot['Batch']}",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+          title: Text('Batch:  ${snapshot['Batch']}',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
           subtitle: Text(department),
-          trailing: Icon(Icons.arrow_forward_ios),
-        ),
-      ),
+          trailing: IconButton(
+              icon: Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+              onPressed: () {
+                confirmDelete(context, snapshot['Batch']);
+              })),
+    );
+  }
+
+  confirmDelete(BuildContext context, batch) {
+    // set up the button
+    Widget yes = CupertinoDialogAction(
+      child: Text("Yes"),
+      onPressed: () {
+        Navigator.pop(context);
+        FirebaseFirestore.instance
+            .collection('Batches')
+            .doc(department)
+            .collection('Batches')
+            .doc(batch)
+            .delete();
+      },
+    );
+
+    Widget no = CupertinoDialogAction(
+      child: Text("No"),
+      onPressed: () {
+        Navigator.maybePop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    CupertinoAlertDialog alert = CupertinoAlertDialog(
+      title: Text("Delete"),
+      content: Text("Do you want to Delete $batch?"),
+      actions: [yes, no],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

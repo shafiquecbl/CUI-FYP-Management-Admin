@@ -98,13 +98,13 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
       onSaved: (newValue) => department = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: "Please Select your department");
+          removeError(error: "Please Select department");
           department = value;
         } else {}
       },
       decoration: InputDecoration(
         labelText: "Department",
-        hintText: "Select your Department",
+        hintText: "Select Department",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: Icon(Icons.local_fire_department_outlined),
         border: outlineBorder,
@@ -154,9 +154,6 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
           if (value.isNotEmpty) {
             removeError(error: kEmailNullError);
           }
-          // else if (studentEmail.hasMatch(value)) {
-          //   removeError(error: kInvalidEmailError);
-          // }
           email = value.toLowerCase();
         });
       },
@@ -165,18 +162,12 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
           addError(error: kEmailNullError);
           return "";
         }
-        // else if (!studentEmail.hasMatch(value)) {
-        //   addError(error: kInvalidEmailError);
-        //   return "";
-        // }
         return null;
       },
       decoration: InputDecoration(
         border: outlineBorder,
         labelText: "Email",
-        hintText: "Enter your email",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        hintText: "Enter email",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
       ),
