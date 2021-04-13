@@ -34,6 +34,13 @@ class Messages {
   }
 
   Future addStudentContact(receiverEmail, message) async {
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(receiverEmail)
+        .collection('Contact US')
+        .doc('shafiquecbl@gmail.com')
+        .update({'Status': 'unread'});
+
     return await FirebaseFirestore.instance
         .collection('Users')
         .doc(email)

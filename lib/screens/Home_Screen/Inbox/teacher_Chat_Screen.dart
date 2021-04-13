@@ -184,6 +184,10 @@ class _TeacherChatScreenState extends State<TeacherChatScreen> {
       var text = textFieldController.text;
       Messages().addTeacherMessage(
           receiverEmail: widget.receiverEmail, message: text);
+      Messages().addTeacherContact(
+          receiverEmail: widget.receiverEmail,
+          receiverName: widget.receiverName,
+          message: text);
 
       FirebaseFirestore.instance
           .collection('Users')
