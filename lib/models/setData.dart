@@ -37,6 +37,8 @@ class SetData {
       'GroupID': "",
       'Current Step': step,
       'token': '',
+      'Supervisor': '',
+      'Supervisor Name': ''
     });
     return await firestore
         .collection('Students')
