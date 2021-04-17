@@ -7,8 +7,8 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Admin App"
-        android:icon="@mipmap/ic_launcher1"
+        android:label="FYP Admin"
+        android:icon="@mipmap/ic_launcher"
         >
         <activity
             android:name=".MainActivity"

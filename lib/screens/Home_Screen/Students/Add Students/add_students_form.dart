@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp_management/components/custom_surfix_icon.dart';
@@ -26,6 +27,7 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
 
   String department;
   String batch;
+  bool isVisible = false;
 
   static const menuItems = <String>[
     'CS',
@@ -37,6 +39,10 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
             child: Text(value),
           ))
       .toList();
+
+  static List<String> batchList = [];
+
+  List<DropdownMenuItem<String>> batchItem;
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -59,7 +65,7 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
         child: Column(children: [
           getDepartmentFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
-          getBatchFormField(),
+          isVisible == true ? getBatch() : Container(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
@@ -75,10 +81,10 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
               }
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                if (batch == "B") {
+                if (batch == null) {
                   addError(error: "Please select batch");
                 }
-                if (batch != "B") {
+                if (batch != null) {
                   removeError(error: "Please select batch");
                   password = email.split('@').first;
                   removeError(error: kInvalidEmailError);
@@ -95,11 +101,19 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
 
   DropdownButtonFormField getDepartmentFormField() {
     return DropdownButtonFormField(
-      onSaved: (newValue) => department = newValue,
+      onSaved: (newValue) {
+        department = newValue;
+        getBatchs();
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: "Please Select department");
+          batchList.clear();
+          setState(() {
+            isVisible = false;
+          });
           department = value;
+          getBatchs();
         } else {}
       },
       decoration: InputDecoration(
@@ -113,33 +127,23 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
     );
   }
 
-  //////////////////////////////////////////////////////////////////////////////
-
-  TextFormField getBatchFormField() {
-    return TextFormField(
-      initialValue: 'B',
-      maxLength: 3,
-      onSaved: (newValue) => batch = newValue.toUpperCase(),
+  DropdownButtonFormField getBatch() {
+    return DropdownButtonFormField(
+      onSaved: (newValue) => batch = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: "Please enter Batch no.");
-          batch = value.toLowerCase();
+          removeError(error: "Please Select Batch");
+          batch = value;
         } else {}
       },
-      validator: (value) {
-        if (value.isEmpty) {
-          addError(error: "Please enter Batch no.");
-          return "";
-        }
-        return null;
-      },
       decoration: InputDecoration(
-        labelText: "Batch No",
-        hintText: "Enter Batch No",
+        labelText: "Batch",
+        hintText: "Select Batch",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: Icon(Icons.batch_prediction_outlined),
+        suffixIcon: Icon(Icons.local_fire_department_outlined),
         border: outlineBorder,
       ),
+      items: batchItem,
     );
   }
 
@@ -175,6 +179,10 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
   }
 
   Future createUser(email, password, context) async {
+    setState(() {
+      batchList.clear();
+    });
+    _formKey.currentState.reset();
     await FirebaseAuth.instanceFor(app: fbApp)
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) async {
@@ -185,6 +193,36 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
       FirebaseAuth.instanceFor(app: fbApp).signOut();
       Navigator.pop(context);
       Snack_Bar.show(context, e.message);
+    });
+  }
+
+  getBatchs() {
+    return FirebaseFirestore.instance
+        .collection('Batches')
+        .doc(department)
+        .collection('Batches')
+        .get()
+        .then((value) {
+      print(value.docs.map((e) {
+        batchList.add(e['Batch']);
+        if (batchList.isNotEmpty) {
+          isVisible = true;
+          setState(() {
+            batchItem = batchList
+                .map((String value1) => DropdownMenuItem<String>(
+                      value: value1,
+                      child: Text(value1),
+                    ))
+                .toList();
+          });
+        }
+        if (batchList.isEmpty) {
+          setState(() {
+            isVisible = false;
+            addError(error: 'No Batch Available in selected department');
+          });
+        }
+      }));
     });
   }
 }
