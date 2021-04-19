@@ -16,29 +16,27 @@ import 'Students/Add Students/add_students.dart';
 class GridDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: StaggeredGridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: 30,
-        mainAxisSpacing: 30,
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-        staggeredTiles: [
-          StaggeredTile.extent(1, 130),
-          StaggeredTile.extent(1, 130),
-          StaggeredTile.extent(1, 130),
-          StaggeredTile.extent(1, 130),
-          StaggeredTile.extent(1, 130),
-          StaggeredTile.extent(1, 130),
-        ],
-        children: [
-          addbatch(context),
-          inbox(context),
-          addDates(context),
-          viewGroups(context),
-          teachers(context),
-          students(context),
-        ],
-      ),
+    return StaggeredGridView.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 30,
+      mainAxisSpacing: 30,
+      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+      staggeredTiles: [
+        StaggeredTile.extent(1, 130),
+        StaggeredTile.extent(1, 130),
+        StaggeredTile.extent(1, 130),
+        StaggeredTile.extent(1, 130),
+        StaggeredTile.extent(1, 130),
+        StaggeredTile.extent(1, 130),
+      ],
+      children: [
+        addbatch(context),
+        inbox(context),
+        addDates(context),
+        viewGroups(context),
+        teachers(context),
+        students(context),
+      ],
     );
   }
 
@@ -48,14 +46,14 @@ class GridDashboard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-            color: kPrimaryColor.withOpacity(0.3),
+            color: kIconColor,
             spreadRadius: 0,
             blurRadius: 2,
             offset: Offset(1, 0),
           )
-        ], color: Colors.grey[50], borderRadius: BorderRadius.circular(10)),
+        ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
         child: FlatButton(
-          splashColor: kPrimaryColor.withOpacity(0.5),
+          splashColor: kIconColor,
           onPressed: () {
             navigator(context, ManageBatchs());
           },
@@ -64,7 +62,7 @@ class GridDashboard extends StatelessWidget {
             children: <Widget>[
               Icon(
                 Icons.add_box,
-                color: kPrimaryColor,
+                color: kIconColor,
                 size: 42,
               ),
               SizedBox(
@@ -75,7 +73,7 @@ class GridDashboard extends StatelessWidget {
                 style: GoogleFonts.teko(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: Colors.black.withOpacity(0.6)),
+                    color: kTextColor),
               ),
             ],
           ),
@@ -90,14 +88,14 @@ class GridDashboard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-            color: kPrimaryColor.withOpacity(0.3),
+            color: kIconColor,
             spreadRadius: 0,
             blurRadius: 2,
             offset: Offset(1, 0),
           )
-        ], color: Colors.grey[50], borderRadius: BorderRadius.circular(10)),
+        ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
         child: FlatButton(
-          splashColor: kPrimaryColor.withOpacity(0.5),
+          splashColor: kIconColor,
           onPressed: () {
             navigator(context, AddStudents());
           },
@@ -106,7 +104,7 @@ class GridDashboard extends StatelessWidget {
             children: <Widget>[
               SvgPicture.asset(
                 "assets/icons/student.svg",
-                color: kPrimaryColor,
+                color: kIconColor,
                 width: 42,
               ),
               SizedBox(
@@ -117,7 +115,7 @@ class GridDashboard extends StatelessWidget {
                 style: GoogleFonts.teko(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.black.withOpacity(0.6)),
+                    color: kTextColor),
               ),
             ],
           ),
@@ -132,14 +130,14 @@ class GridDashboard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-            color: kPrimaryColor.withOpacity(0.3),
+            color: kIconColor,
             spreadRadius: 0,
             blurRadius: 2,
             offset: Offset(1, 0),
           )
-        ], color: Colors.grey[50], borderRadius: BorderRadius.circular(10)),
+        ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
         child: FlatButton(
-          splashColor: kPrimaryColor.withOpacity(0.5),
+          splashColor: kIconColor,
           onPressed: () {
             navigator(context, AddTeachers());
           },
@@ -148,7 +146,7 @@ class GridDashboard extends StatelessWidget {
             children: <Widget>[
               SvgPicture.asset(
                 "assets/icons/teacher.svg",
-                color: kPrimaryColor,
+                color: kIconColor,
                 width: 42,
               ),
               SizedBox(
@@ -159,7 +157,7 @@ class GridDashboard extends StatelessWidget {
                 style: GoogleFonts.teko(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.black.withOpacity(0.6)),
+                    color: kTextColor),
               ),
             ],
           ),
@@ -174,14 +172,14 @@ class GridDashboard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-            color: kPrimaryColor.withOpacity(0.3),
+            color: kIconColor,
             spreadRadius: 0,
             blurRadius: 2,
             offset: Offset(1, 0),
           )
-        ], color: Colors.grey[50], borderRadius: BorderRadius.circular(10)),
+        ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
         child: FlatButton(
-          splashColor: kPrimaryColor.withOpacity(0.5),
+          splashColor: kIconColor,
           onPressed: () {
             navigator(context, ViewGroups());
           },
@@ -190,7 +188,7 @@ class GridDashboard extends StatelessWidget {
             children: <Widget>[
               Icon(
                 Icons.group,
-                color: kPrimaryColor,
+                color: kIconColor,
                 size: 42,
               ),
               SizedBox(
@@ -201,7 +199,7 @@ class GridDashboard extends StatelessWidget {
                 style: GoogleFonts.teko(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: Colors.black.withOpacity(0.6)),
+                    color: kTextColor),
               ),
             ],
           ),
@@ -216,14 +214,14 @@ class GridDashboard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-            color: kPrimaryColor.withOpacity(0.3),
+            color: kIconColor,
             spreadRadius: 0,
             blurRadius: 2,
             offset: Offset(1, 0),
           )
-        ], color: Colors.grey[50], borderRadius: BorderRadius.circular(10)),
+        ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
         child: FlatButton(
-          splashColor: kPrimaryColor.withOpacity(0.5),
+          splashColor: kIconColor,
           onPressed: () {
             navigator(context, AddDates());
           },
@@ -232,7 +230,7 @@ class GridDashboard extends StatelessWidget {
             children: <Widget>[
               Icon(
                 Icons.calendar_today,
-                color: kPrimaryColor,
+                color: kIconColor,
                 size: 42,
               ),
               SizedBox(
@@ -243,7 +241,7 @@ class GridDashboard extends StatelessWidget {
                 style: GoogleFonts.teko(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: Colors.black.withOpacity(0.6)),
+                    color: kTextColor),
               ),
             ],
           ),
@@ -253,88 +251,98 @@ class GridDashboard extends StatelessWidget {
   }
 
   inbox(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        navigator(context, Inboxx());
-      },
-      splashColor: kPrimaryColor,
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
       child: Container(
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-            color: kPrimaryColor.withOpacity(0.3),
+            color: kIconColor,
             spreadRadius: 0,
             blurRadius: 2,
             offset: Offset(1, 0),
           )
-        ], color: Colors.grey[50], borderRadius: BorderRadius.circular(10)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(
-              Icons.inbox,
-              color: kPrimaryColor,
-              size: 40,
-            ),
-            SizedBox(
-              height: 14,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Inbox",
-                  style: GoogleFonts.teko(
-                      fontWeight: FontWeight.w600, fontSize: 18),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('Users')
-                      .doc(FirebaseAuth.instance.currentUser.email)
-                      .collection('Student Contacts')
-                      .where('Status', isEqualTo: 'unread')
-                      .snapshots(),
-                  builder: (BuildContext context, AsyncSnapshot snap) {
-                    if (snap.connectionState == ConnectionState.waiting)
-                      return Container();
-                    return StreamBuilder(
-                      stream: FirebaseFirestore.instance
-                          .collection('Users')
-                          .doc(FirebaseAuth.instance.currentUser.email)
-                          .collection('Teacher Contacts')
-                          .where('Status', isEqualTo: 'unread')
-                          .snapshots(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting)
+        ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
+        child: FlatButton(
+          splashColor: kIconColor,
+          onPressed: () {
+            navigator(context, Inboxx());
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.inbox,
+                color: kIconColor,
+                size: 40,
+              ),
+              SizedBox(
+                height: 14,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Inbox",
+                    style: GoogleFonts.teko(
+                        color: kTextColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('Users')
+                        .doc(FirebaseAuth.instance.currentUser.email)
+                        .collection('Student Contacts')
+                        .where('Status', isEqualTo: 'unread')
+                        .snapshots(),
+                    builder: (BuildContext context, AsyncSnapshot snap) {
+                      if (snap.connectionState == ConnectionState.waiting)
+                        return Container();
+                      return StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('Users')
+                            .doc(FirebaseAuth.instance.currentUser.email)
+                            .collection('Teacher Contacts')
+                            .where('Status', isEqualTo: 'unread')
+                            .snapshots(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) return Container();
+                          if (snapshot.data.docs.length +
+                                  snap.data.docs.length !=
+                              0)
+                            return Container(
+                              padding: EdgeInsets.all(2),
+                              decoration: new BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              constraints: BoxConstraints(
+                                minWidth: 25,
+                                minHeight: 12,
+                              ),
+                              child: new Text(
+                                '${snapshot.data.docs.length + snap.data.docs.length}',
+                                style: new TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            );
                           return Container();
-                        return Container(
-                          padding: EdgeInsets.all(2),
-                          decoration: new BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          constraints: BoxConstraints(
-                            minWidth: 25,
-                            minHeight: 12,
-                          ),
-                          child: new Text(
-                            '${snapshot.data.docs.length + snap.data.docs.length}',
-                            style: new TextStyle(
-                              color: Colors.white,
-                              fontSize: 8,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ],
-            )
-          ],
+                        },
+                      );
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

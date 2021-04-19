@@ -14,6 +14,8 @@ const Color kButtonColor = Color(0xff1e2049);
 const Color separatorColor = Color(0xff272c35);
 const Color greyColor = Color(0xff8f8f8f);
 const Color receiverColor = Color(0xff1e2225);
+const kCardColor = hexColor;
+const kIconColor = Color(0xFF8D4DE9);
 
 final headingStyle = TextStyle(
   fontSize: getProportionateScreenWidth(28),

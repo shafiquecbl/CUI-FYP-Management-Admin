@@ -120,7 +120,6 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
         labelText: "Department",
         hintText: "Select Department",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: Icon(Icons.local_fire_department_outlined),
         border: outlineBorder,
       ),
       items: popUpMenuItem,
@@ -140,7 +139,6 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
         labelText: "Batch",
         hintText: "Select Batch",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: Icon(Icons.local_fire_department_outlined),
         border: outlineBorder,
       ),
       items: batchItem,
@@ -182,7 +180,6 @@ class _AddStudentsFormState extends State<AddStudentsForm> {
     setState(() {
       batchList.clear();
     });
-    _formKey.currentState.reset();
     await FirebaseAuth.instanceFor(app: fbApp)
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) async {

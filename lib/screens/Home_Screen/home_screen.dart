@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp_management/constants.dart';
 import 'package:fyp_management/screens/Home_Screen/griddashboard.dart';
 import 'package:fyp_management/widgets/snack_bar.dart';
 import 'package:fyp_management/screens/sign_in/sign_in_screen.dart';
@@ -19,60 +20,59 @@ class _HomeScreenState extends State<HomeScreen> {
   String token;
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     getToken();
-    return WillPopScope(
-      onWillPop: () async => null,
-      child: Scaffold(
-        body: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 90,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 16, right: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Rana Zulkaif",
-                        style: GoogleFonts.teko(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        "Admin",
-                        style: GoogleFonts.teko(
-                            color: Color(0xffa29aac),
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                    alignment: Alignment.topCenter,
-                    icon: Icon(
-                      Icons.logout,
-                    ),
-                    onPressed: () {
-                      confirmSignout(context);
-                    },
-                  )
-                ],
+    return Scaffold(
+        backgroundColor: kWhiteColor,
+        body: Stack(
+          children: [
+            Container(
+              width: size.width,
+              height: size.height * .3,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/curve3.png'), fit: BoxFit.cover),
               ),
             ),
-            SizedBox(
-              height: 40,
+            SafeArea(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                        contentPadding:
+                            EdgeInsets.only(left: 20, right: 20, top: 20),
+                        title: Text(
+                          "Rana Zulkaif",
+                          style: GoogleFonts.teko(
+                              color: hexColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22),
+                        ),
+                        subtitle: Text(
+                          "Admin",
+                          style: GoogleFonts.teko(
+                              color: Colors.yellowAccent,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        trailing: IconButton(
+                          alignment: Alignment.topCenter,
+                          icon: Icon(
+                            Icons.logout,
+                            color: hexColor,
+                          ),
+                          onPressed: () {
+                            confirmSignout(context);
+                          },
+                        )),
+                    Expanded(child: GridDashboard()),
+                  ],
+                ),
+              ),
             ),
-            GridDashboard()
           ],
-        ),
-      ),
-    );
+        ));
   }
 
   confirmSignout(BuildContext context) {

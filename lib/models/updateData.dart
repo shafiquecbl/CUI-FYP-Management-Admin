@@ -21,8 +21,8 @@ class UpdateData {
             'PhotoURL': "",
           },
         )
-        .then((value) =>
-            Navigator.pushReplacementNamed(context, HomeScreen.routeName))
+        .then((value) => Navigator.pushNamedAndRemoveUntil(
+            context, HomeScreen.routeName, (route) => false))
         .catchError((e) {
           Snack_Bar.show(context, e.message);
         });
