@@ -4,7 +4,7 @@ import 'package:fyp_management/models/verify_email.dart';
 
 verifyEmailDialog(BuildContext context, title, content) {
   // set up the button
-  Widget okButton = FlatButton(
+  Widget okButton = TextButton(
     child: Text("Verify"),
     onPressed: () {
       Navigator.pushReplacementNamed(context, VerifyEmail.routeName);

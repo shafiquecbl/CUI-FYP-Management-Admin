@@ -48,10 +48,12 @@ class Offline extends StatelessWidget {
                       ),
                       SizedBox(height: 5),
                       SizedBox(height: 60),
-                      RaisedButton(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                          color: kPrimaryColor,
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 8),
+                            primary: kPrimaryColor,
+                          ),
                           child: Text(
                             tryAgain,
                             style: TextStyle(

@@ -52,8 +52,11 @@ class GridDashboard extends StatelessWidget {
             offset: Offset(1, 0),
           )
         ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
-        child: FlatButton(
-          splashColor: kIconColor,
+        child: TextButton(
+          style: ButtonStyle(
+            overlayColor:
+                MaterialStateColor.resolveWith((states) => kIconColor),
+          ),
           onPressed: () {
             navigator(context, ManageBatchs());
           },
@@ -94,8 +97,11 @@ class GridDashboard extends StatelessWidget {
             offset: Offset(1, 0),
           )
         ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
-        child: FlatButton(
-          splashColor: kIconColor,
+        child: TextButton(
+          style: ButtonStyle(
+            overlayColor:
+                MaterialStateColor.resolveWith((states) => kIconColor),
+          ),
           onPressed: () {
             navigator(context, AddStudents());
           },
@@ -136,8 +142,11 @@ class GridDashboard extends StatelessWidget {
             offset: Offset(1, 0),
           )
         ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
-        child: FlatButton(
-          splashColor: kIconColor,
+        child: TextButton(
+          style: ButtonStyle(
+            overlayColor:
+                MaterialStateColor.resolveWith((states) => kIconColor),
+          ),
           onPressed: () {
             navigator(context, AddTeachers());
           },
@@ -178,8 +187,11 @@ class GridDashboard extends StatelessWidget {
             offset: Offset(1, 0),
           )
         ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
-        child: FlatButton(
-          splashColor: kIconColor,
+        child: TextButton(
+          style: ButtonStyle(
+            overlayColor:
+                MaterialStateColor.resolveWith((states) => kIconColor),
+          ),
           onPressed: () {
             navigator(context, ViewGroups());
           },
@@ -220,8 +232,11 @@ class GridDashboard extends StatelessWidget {
             offset: Offset(1, 0),
           )
         ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
-        child: FlatButton(
-          splashColor: kIconColor,
+        child: TextButton(
+          style: ButtonStyle(
+            overlayColor:
+                MaterialStateColor.resolveWith((states) => kIconColor),
+          ),
           onPressed: () {
             navigator(context, AddDates());
           },
@@ -262,8 +277,11 @@ class GridDashboard extends StatelessWidget {
             offset: Offset(1, 0),
           )
         ], color: kCardColor, borderRadius: BorderRadius.circular(10)),
-        child: FlatButton(
-          splashColor: kIconColor,
+        child: TextButton(
+          style: ButtonStyle(
+            overlayColor:
+                MaterialStateColor.resolveWith((states) => kIconColor),
+          ),
           onPressed: () {
             navigator(context, Inboxx());
           },
